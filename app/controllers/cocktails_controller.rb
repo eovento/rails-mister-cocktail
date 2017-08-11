@@ -5,6 +5,7 @@ class CocktailsController < ApplicationController
 
   def show
     @cocktail = Cocktail.find(params[:id])
+    # @dose = Dose.new
   end
 
   def new
@@ -12,27 +13,42 @@ class CocktailsController < ApplicationController
   end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
-
-    respond_to do |format|
-      if @restaurant.save
-        format.html { redirect_to @restaurant, notice: 'Restaurant was successfully created.' }
-        format.json { render :show, status: :created, location: @restaurant }
-      else
-        format.html { render :new }
-        format.json { render json: @restaurant.errors, status: :unprocessable_entity }
-      end
+    @cocktail = Cocktail.new(cocktail_params)
+    if @cocktail.save
+      redirect_to cocktail_path(@cocktail)
+    else
+      render :new
     end
+  end
+
+  def edit
+    @cocktail = Cocktail.find(params[:id])
+  end
+
+  def update
+    @cocktail = Cocktail.find(params[:id])
+    if @cocktail.update(cocktail_params)
+      redirect_to cocktail_path(@cocktail)
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @cocktail = Cocktail.find(params[:id])
+    @cocktail.destroy
+    redirect_to cocktails_path
   end
 
   private
 
-  def set_restaurant
-    @restaurant = Restaurant.find(params[:id])
+  def set_cocktail
+    @cocktail = Cocktail.find(params[:id])
   end
 
-  def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :phone, :category, :reviews)
+  def cocktail_params
+      params.require(:cocktail).permit(:name)
   end
 
 end
+  
