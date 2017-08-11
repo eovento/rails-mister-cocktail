@@ -3,6 +3,8 @@ Rails.application.routes.draw do
     resources :doses
   end
 
+  resources :doses, only: [:index]
+
 
   # get 'doses/index'
 

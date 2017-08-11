@@ -1,5 +1,10 @@
-<%= form_for @cocktail do |f| %>
-  <%= f.label :name, "Name your cocktail:" %>
-  <%= f.text_field :name %>
-  <%= f.submit %>
-<% end %>
+<%= simple_form_for @cocktail do |f| %>
+	<%= f.input :name, input_html: {class: "test"} %>
+	<%= f.submit class: "btn" %>
+	<% end %>
+
+
+
+
+
+
